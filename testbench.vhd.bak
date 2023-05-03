@@ -1,0 +1,17 @@
+entity testbench is
+    constant nBits  :   integer := 1;
+end entity;
+
+architecture sim of testbench is
+    
+    signal clk, rst :   bit;
+    signal d, q  :   bit_vector (nBits - 1 downto 0);
+
+begin
+    
+    dut_registrador :   entity work.parametrized_parallel_register(rtl) generic map(nBits) port map (clk, rst, d, q);
+    
+    clk <= not clk after 10 ns;
+
+    data <= "0", "1" after 110 ns, "0" after 70 ns, "1" after 200 ns;
+end architecture sim;

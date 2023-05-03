@@ -1,0 +1,33 @@
+library ieee;
+use ieee.std_logic_1164.all;
+
+
+entity parametrized_parallel_register is
+    generic (
+        nBits   :   integer :=  4
+    );
+
+    port (
+        clk in  : bit;
+        rst in  : bit;
+        d   in  : bit_vector (nBits-1 downto 0);
+        q   out : bit_vector (nBits-1 downto 0)
+    );
+
+end entity
+
+architecture rtl of parametrized_parallel_register is
+    
+begin
+    
+    process(clk, rst)
+    begin
+        if rst = '0' then
+            q <= (others => '0');
+        elsif rising_edge(clk) then --clk'event and clk='1'
+            q <= d;
+        end if;
+
+    end process;
+
+end architecture rtl;
